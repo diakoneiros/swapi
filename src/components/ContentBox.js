@@ -1,4 +1,5 @@
 import React from 'react';
+import ContentCard from './ContentCard'
 
 const ContentBox = ({ arrayOfEntries, labels }) => {
   if (arrayOfEntries.length < 1) {
@@ -11,9 +12,13 @@ const ContentBox = ({ arrayOfEntries, labels }) => {
 
 
     return (
-      <div>
-        {arrayOfEntries}
-        {labels}
+      <div id="ContentBox">
+        {arrayOfEntries.map((entry, index) => <ContentCard
+          key={index}
+          values={entry}
+          keys={labels}
+          index={index}
+        />)}
       </div>
     )
   }

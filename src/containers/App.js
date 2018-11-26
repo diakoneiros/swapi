@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Navbar from '../components/Navbar';
 import ContentBox from '../components/ContentBox';
+import SearchBox from '../components/SearchBox';
 
 class App extends Component {
   constructor() {
@@ -14,6 +15,10 @@ class App extends Component {
       entryValues: [],
       filteredEntries: []
     }
+  }
+
+  onSearchChange = (event) => {
+    this.setState({ searchfield: event.target.value });
   }
 
   fetchData = (url) => {
@@ -67,15 +72,20 @@ class App extends Component {
       // eslint-disable-next-line
       .filter(entity => {
         for (const property of entity) {
-          return property.toString().toLowerCase()
-            .includes(query.toLowerCase());
+          if (property.toString().toLowerCase()
+            .includes(query.toLowerCase())) return true;
         }
+        return false;
       })
   }
 
   render() {
     return (
       <div className="App">
+        <SearchBox
+          searchchange={this.onSearchChange}
+          activeTab={this.state.fields[this.state.activeFieldIndex]}
+        />
         <Navbar
           options={this.state.fields}
           onButtonClick={this.onButtonClick} />
