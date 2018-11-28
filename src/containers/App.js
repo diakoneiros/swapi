@@ -1,70 +1,82 @@
 import React, { Component } from 'react';
 import './App.css';
-import Navbar from '../components/Navbar';
+import MyNavbar from '../components/MyNavbar';
 import ContentBox from '../components/ContentBox';
-import SearchBox from '../components/SearchBox';
+import Container from 'react-bootstrap/lib/Container'
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
       fields: ['placeholder'],
-      activeFieldIndex: 0,
+      entries: 'main',
       searchfield: '',
       entryKeys: [],
       entryValues: [],
       filteredEntries: []
     }
+    this.onSearchChange = this.onSearchChange.bind(this)
   }
 
   onSearchChange = (event) => {
     this.setState({ searchfield: event.target.value });
   }
 
-  fetchData = (url) => {
+  fetchFields = (url) => {
     fetch(url)
       .then(response => response.json())
       .then(values => Object.keys(values))
       .then(entries => this.setState({ fields: entries }))
-
-
   }
 
-  fetchEntries = (entryType) => {
-    fetch(`https://swapi.co/api/${entryType}`)
-      .then(response => response.json())
-      .then(values => {
-        let tableOfEntries = [];
-        let keys = Object.keys(values.results[0])
-        values.results.map(val => tableOfEntries.push(Object.values(val)));
+
+  async asyncFetchEntries(entryType) {
+    let url = `https://swapi.co/api/${entryType.toLowerCase()}`;
+    let tableOfEntries = [];
+    this.setState({
+      entryKeys: [],
+      entryValues: []
+    })
+    while (url !== null) {
+      const response = await fetch(url);
+      const json = await response.json();
+      json.results.map(
+        entity => tableOfEntries.push(Object.values(entity)))
+
+      url = json.next;
+      if (this.state.entryKeys.length < 1) {
         this.setState({
-          entryKeys: keys,
-          entryValues: tableOfEntries
+          entryKeys: Object.keys(json.results[0])
         })
+      };
+      this.setState({
+        entryValues: tableOfEntries
       })
+    }
   }
-
 
   onButtonClick = (event) => {
-    if (event.target.innerText === `${this.state.fields[this.state.activeFieldIndex]}`) console.log("Hi")
-    document.getElementById(this.state.activeFieldIndex)
-      .classList.remove("active")
+    let btn = event.target;
+    let lable = btn.innerText;
+    if (lable !== this.state.entries) {
 
-    event.target.classList.add("active")
+      if (this.state.entries !== 'main') {
+        document.getElementsByClassName("btn-active")[0]
+          .classList.remove("btn-active");
+      }
 
-    let label = event.target.innerText;
+      btn.classList.add("btn-active");
 
-    this.setState({
-      activeFieldIndex: event.target.id,
-      entries: label
-    })
-
-    this.fetchEntries(label)
-
+      this.setState({
+        activeFieldIndex: btn.id,
+        entries: lable
+      })
+      this.asyncFetchEntries(lable);
+    }
   }
 
   componentDidMount() {
-    this.fetchData("https://swapi.co/api/");
+    this.fetchFields("https://swapi.co/api/");
   }
 
   filterEntries = (query) => {
@@ -81,20 +93,22 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <SearchBox
-          searchchange={this.onSearchChange}
-          activeTab={this.state.fields[this.state.activeFieldIndex]}
-        />
-        <Navbar
-          options={this.state.fields}
-          onButtonClick={this.onButtonClick} />
-        <ContentBox
-          arrayOfEntries={
-            this.filterEntries(this.state.searchfield)
-          }
-          labels={this.state.entryKeys}
-        />
+      <div className="App" >
+        <Container id="contentWrapper">
+          <MyNavbar
+            options={this.state.fields}
+            onButtonClick={this.onButtonClick}
+            onSearchChange={this.onSearchChange}
+            activeTab={this.entry}
+          />
+          <ContentBox
+            entry={this.state.entries}
+            arrayOfEntries={
+              this.filterEntries(this.state.searchfield)
+            }
+            labels={this.state.entryKeys}
+          />
+        </Container>
       </div>
     );
   }

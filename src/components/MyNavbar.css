@@ -1,0 +1,12 @@
+a.nav-link.btn-active{
+  background: orangered;
+  color:white!important;
+}
+
+a.nav-link.btn-active:hover{
+  color:white!important; 
+}
+
+.MyNavbar {
+  box-shadow: 0 4px 2px -2px red;
+}

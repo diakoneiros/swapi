@@ -1,0 +1,40 @@
+
+div.card{
+  float:left;
+  margin:20px;
+  min-width: 28%;
+  max-width: 28%;
+  max-height:20rem;
+  overflow-y: scroll;
+  -webkit-box-shadow: 11px 13px 19px -8px rgba(0,0,0,0.17);
+  -moz-box-shadow: 11px 13px 19px -8px rgba(0,0,0,0.17);
+  box-shadow: 11px 13px 19px -8px rgba(0,0,0,0.17);
+}
+
+
+
+.h5{
+  text-transform: uppercase;
+}
+
+@media (max-width:600px){
+  div.card
+  {
+    max-width:100%;
+  }
+}
+
+@media (max-width: 768px) and (min-width:601px){
+  div.card
+  {
+    max-width:42%;
+  }
+}
+
+ul.main {
+  padding:0;
+}
+
+ul{
+  list-style-type: none;
+}
