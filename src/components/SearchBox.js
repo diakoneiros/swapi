@@ -15,16 +15,6 @@ const SearchBox = ({
         onChange={searchchange}
       />
     </Form>
-    // <div className="searchBar" >
-    //   <
-    //     input type='search'
-    //     placeholder={
-    //       `search ${activeTab}`
-    //     }
-    //     onChange={
-    //       searchchange
-    //     }
-    //   /> </div >
   )
 }
 
