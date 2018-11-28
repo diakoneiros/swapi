@@ -1,0 +1,13 @@
+{
+  "main.css": "/swapi/static/css/main.5b481f5d.chunk.css",
+  "main.js": "/swapi/static/js/main.1c4baae6.chunk.js",
+  "main.js.map": "/swapi/static/js/main.1c4baae6.chunk.js.map",
+  "static/js/1.b9d7449d.chunk.js": "/swapi/static/js/1.b9d7449d.chunk.js",
+  "static/js/1.b9d7449d.chunk.js.map": "/swapi/static/js/1.b9d7449d.chunk.js.map",
+  "runtime~main.js": "/swapi/static/js/runtime~main.5a32f8fe.js",
+  "runtime~main.js.map": "/swapi/static/js/runtime~main.5a32f8fe.js.map",
+  "static/css/main.5b481f5d.chunk.css.map": "/swapi/static/css/main.5b481f5d.chunk.css.map",
+  "index.html": "/swapi/index.html",
+  "precache-manifest.42ef67425d76b754e7caf9d537c18bef.js": "/swapi/precache-manifest.42ef67425d76b754e7caf9d537c18bef.js",
+  "service-worker.js": "/swapi/service-worker.js"
+}
