@@ -1,6 +1,6 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-#It's simple, and all you need to do is type in.
+## It's simple, and all you need to do is type in.
 
 That said, there are a couple of issues with it.
 
